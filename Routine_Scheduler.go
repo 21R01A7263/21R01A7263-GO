@@ -5,17 +5,16 @@ import (
 	"runtime"
 	"sync"
 )
-
 func main() {
-	runtime.GOMAXPROCS(4)
+	runtime.GOMAXPROCS(3)
 	var processTest sync.WaitGroup
-	processTest.Add(2)
+	processTest.Add(3)
 	go func() {
 		defer processTest.Done()
-		for i := 0; i < 30; i++ {
-			for j := 15; j <= 25; j++ {
+		for i := 0; i < 10; i++ {
+			for j := 1; j <= 9; j++ {
 				fmt.Printf(" %d", j)
-				if j == 18 {
+				if j == 3 {
 					fmt.Println()
 				}
 			}
@@ -23,15 +22,26 @@ func main() {
 	}()
 	go func() {
 		defer processTest.Done()
-		for j := 0; j < 10; j++ {
-			for char := 'A'; char < 'A'+26; char++ {
+		for j := 0; j < 5; j++ {
+			for char := 'A'; char < 'A'+9; char++ {
 				fmt.Printf("%c ", char)
-				if char == 'F' {
+				if char == 'C' {
 					fmt.Println()
 				}
 			}
 		}
 	}()
 
+	go func() {
+		defer processTest.Done()
+		for i := 0; i < 5; i++ {
+			for j := 0; j <= 10; j++ {
+				fmt.Printf(" %d", j)
+				if j == 5 {
+					fmt.Println()
+				}
+			}
+		}
+	}()
 	processTest.Wait()
 }
