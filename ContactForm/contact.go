@@ -30,5 +30,6 @@ func main() {
 		fmt.Printf("%+v", myInformation)
 		tmpl.Execute(w, struct{ Success bool }{true})
 	})
+	fmt.Println("Server Running on http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
 }
